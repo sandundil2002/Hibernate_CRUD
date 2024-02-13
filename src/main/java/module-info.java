@@ -3,6 +3,7 @@ module lk.ijse.hibernate_crud {
     requires javafx.fxml;
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
+    requires static lombok;
 
 
     opens lk.ijse.hibernate_crud to javafx.fxml;
