@@ -2,7 +2,6 @@ package lk.ijse.hibernate_crud.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.sql.Timestamp;
 
 @NoArgsConstructor

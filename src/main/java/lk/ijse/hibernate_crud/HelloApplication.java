@@ -12,7 +12,9 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/view/customer_form.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Customer Manage Form");
+        stage.setResizable(false);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
