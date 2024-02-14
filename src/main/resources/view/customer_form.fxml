@@ -41,7 +41,7 @@
       <Label fx:id="lblDate" layoutX="662.0" layoutY="39.0" prefHeight="20.0" prefWidth="92.0" styleClass="dateLabel" stylesheets="@../style/Css.css" text="Label" textFill="#0000009c" />
       <ImageView fitHeight="62.0" fitWidth="63.0" layoutX="13.0" layoutY="5.0" onMouseClicked="#btnBackOnAction" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/Back%20Arrow.gif" />
+            <Image url="@../assets/Back Arrow.gif" />
          </image>
       </ImageView>
       <ImageView fitHeight="80.0" fitWidth="94.0" layoutX="134.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">

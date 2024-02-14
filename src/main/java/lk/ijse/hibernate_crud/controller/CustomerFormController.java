@@ -69,16 +69,36 @@ public class CustomerFormController {
         String mobile = txtMobile.getText();
 
         if (validateCustomer()) {
-            Session session = SessionFactoryConfig.getInstance().getSession();
-            Transaction transaction = session.beginTransaction();
+            Session saveSession = SessionFactoryConfig.getInstance().getSession();
+            Transaction transaction = saveSession.beginTransaction();
             Customer saveCustomer = new Customer(id, name, address, mobile);
-            session.save(saveCustomer);
+            saveSession.save(saveCustomer);
             transaction.commit();
             System.out.println("Saved Customer : " + saveCustomer);
-            session.close();
+            saveSession.close();
             btnClearOnAction();
             setId();
         }
+    }
+
+    @FXML
+    private void btnUpdateOnAction() {
+        String id = txtId.getText();
+        String name = txtFirstname.getText()+" "+txtLastname.getText();
+        String address = txtAddress.getText();
+        String mobile = txtMobile.getText();
+
+        Session updateSession = SessionFactoryConfig.getInstance().getSession();
+        Transaction updateTransaction = updateSession.beginTransaction();
+        Customer updateCustomer = updateSession.get(Customer.class, id);
+        updateCustomer.setId(id);
+        updateCustomer.setName(name);
+        updateCustomer.setAddress(address);
+        updateCustomer.setMobile(mobile);
+        updateSession.update(updateCustomer);
+        updateTransaction.commit();
+        System.out.println("Updated Customer : " + updateCustomer);
+        updateSession.close();
     }
 
     @FXML
@@ -93,10 +113,6 @@ public class CustomerFormController {
     @FXML
     private void btnDeleteOnAction() {
 
-    }
-
-    @FXML
-    private void btnUpdateOnAction() {
     }
 
     @FXML
