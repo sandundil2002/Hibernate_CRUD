@@ -55,6 +55,14 @@ public class CustomerFormController {
     @FXML
     private TextField txtMobile;
 
+    private String id;
+
+    private String name;
+
+    private String address;
+
+    private String mobile;
+
     public void initialize(){
         updateRealTime(lblTime);
         lblDate.setText(LocalDate.now().toString());
@@ -63,12 +71,8 @@ public class CustomerFormController {
 
     @FXML
     private void btnSaveOnAction() {
-        String id = txtId.getText();
-        String name = txtFirstname.getText()+" "+txtLastname.getText();
-        String address = txtAddress.getText();
-        String mobile = txtMobile.getText();
-
         if (validateCustomer()) {
+            getData();
             Session saveSession = SessionFactoryConfig.getInstance().getSession();
             Transaction transaction = saveSession.beginTransaction();
             Customer saveCustomer = new Customer(id, name, address, mobile);
@@ -83,22 +87,21 @@ public class CustomerFormController {
 
     @FXML
     private void btnUpdateOnAction() {
-        String id = txtId.getText();
-        String name = txtFirstname.getText()+" "+txtLastname.getText();
-        String address = txtAddress.getText();
-        String mobile = txtMobile.getText();
-
-        Session updateSession = SessionFactoryConfig.getInstance().getSession();
-        Transaction updateTransaction = updateSession.beginTransaction();
-        Customer updateCustomer = updateSession.get(Customer.class, id);
-        updateCustomer.setId(id);
-        updateCustomer.setName(name);
-        updateCustomer.setAddress(address);
-        updateCustomer.setMobile(mobile);
-        updateSession.update(updateCustomer);
-        updateTransaction.commit();
-        System.out.println("Updated Customer : " + updateCustomer);
-        updateSession.close();
+        if (validateCustomer()) {
+            getData();
+            Session updateSession = SessionFactoryConfig.getInstance().getSession();
+            Transaction updateTransaction = updateSession.beginTransaction();
+            Customer updateCustomer = updateSession.get(Customer.class, id);
+            updateCustomer.setId(id);
+            updateCustomer.setName(name);
+            updateCustomer.setAddress(address);
+            updateCustomer.setMobile(mobile);
+            updateSession.update(updateCustomer);
+            updateTransaction.commit();
+            System.out.println("Updated Customer : " + updateCustomer);
+            updateSession.close();
+            btnClearOnAction();
+        }
     }
 
     @FXML
@@ -112,7 +115,6 @@ public class CustomerFormController {
 
     @FXML
     private void btnDeleteOnAction() {
-
     }
 
     @FXML
@@ -122,6 +124,13 @@ public class CustomerFormController {
     @FXML
     private void btnBackOnAction() {
         System.exit(0);
+    }
+
+    private void getData(){
+        id = txtId.getText();
+        name = txtFirstname.getText()+" "+txtLastname.getText();
+        address = txtAddress.getText();
+        mobile = txtMobile.getText();
     }
 
     private boolean validateCustomer() {
@@ -172,10 +181,6 @@ public class CustomerFormController {
         return true;
     }
 
-    private void setId(){
-        txtId.setText(CustomerIdGenerator.generateCustomerId());
-    }
-
     private void updateRealTime(Label label) {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -183,5 +188,9 @@ public class CustomerFormController {
             String currentTime = LocalDateTime.now().format(timeFormatter);
             Platform.runLater(() -> label.setText(currentTime));
         }, 0, 1, TimeUnit.SECONDS);
+    }
+
+    private void setId(){
+        txtId.setText(CustomerIdGenerator.generateCustomerId());
     }
 }
