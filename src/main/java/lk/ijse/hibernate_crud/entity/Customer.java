@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "customer")
 public class Customer {
+
     @Id
     @Column(name = "customer_id")
     private String id;
@@ -24,5 +25,4 @@ public class Customer {
 
     @Column(name = "mobile")
     private String mobile;
-
 }

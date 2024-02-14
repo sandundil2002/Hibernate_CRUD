@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: #fff6f6 ; /* Light gray background color */
+    -fx-background-color: #fff6f6 ;
 }
 
 .customer-label {
@@ -11,7 +11,7 @@
     -fx-border: 3px solid #ccc;
     -fx-border-radius: 5px;
     -fx-background-color: Transparent;
-    -fx-text-alignment: right; /* Or left, center */
+    -fx-text-alignment: right;
 }
 
 .UserFiled{
@@ -43,15 +43,15 @@
 }
 
 .timeLabel {
-    -fx-font-size: 20px; /* Font size */
-    -fx-font-weight: bold; /* Normal font weight */
-    -fx-text-fill: black; /* Gray text color */
-    -fx-padding: 2px 6px; /* Padding */
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-padding: 2px 6px;
 }
 
 .dateLabel {
-    -fx-font-size: 12px; /* Font size */
-    -fx-font-weight: normal; /* Normal font weight */
-    -fx-text-fill: black; /* Gray text color */
-    -fx-padding: 2px 6px; /* Padding */
+    -fx-font-size: 15px;
+    -fx-font-weight: normal;
+    -fx-text-fill: black;
+    -fx-padding: 2px 6px;
 }

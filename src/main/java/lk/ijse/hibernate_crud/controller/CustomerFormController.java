@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import lk.ijse.hibernate_crud.entity.Customer;
+import lk.ijse.hibernate_crud.util.CustomerIdGenerator;
 import lk.ijse.hibernate_crud.util.SessionFactoryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -55,8 +56,9 @@ public class CustomerFormController {
     private TextField txtMobile;
 
     public void initialize(){
-        lblDate.setText(LocalDate.now().toString());
         updateRealTime(lblTime);
+        lblDate.setText(LocalDate.now().toString());
+        setId();
     }
 
     @FXML
@@ -75,6 +77,7 @@ public class CustomerFormController {
             System.out.println("Saved Customer : " + saveCustomer);
             session.close();
             btnClearOnAction();
+            setId();
         }
     }
 
@@ -98,6 +101,11 @@ public class CustomerFormController {
 
     @FXML
     private void btnSearchOnAction() {
+    }
+
+    @FXML
+    private void btnBackOnAction() {
+        System.exit(0);
     }
 
     private boolean validateCustomer() {
@@ -148,6 +156,10 @@ public class CustomerFormController {
         return true;
     }
 
+    private void setId(){
+        txtId.setText(CustomerIdGenerator.generateCustomerId());
+    }
+
     private void updateRealTime(Label label) {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -155,10 +167,5 @@ public class CustomerFormController {
             String currentTime = LocalDateTime.now().format(timeFormatter);
             Platform.runLater(() -> label.setText(currentTime));
         }, 0, 1, TimeUnit.SECONDS);
-    }
-
-    @FXML
-    private void btnBackOnAction() {
-        System.exit(0);
     }
 }
