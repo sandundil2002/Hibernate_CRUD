@@ -5,7 +5,7 @@ import org.hibernate.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 
-/*public class SessionFactoryConfig {
+public class SessionFactoryConfig {
 
     private static SessionFactoryConfig factoryConfig;
 
@@ -24,4 +24,4 @@ import org.hibernate.boot.registry.*;
     public Session getSession(){
         return sessionFactory.openSession();
     }
-}*/
+}

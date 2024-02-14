@@ -44,9 +44,9 @@
             <Image url="@../assets/Back%20Arrow.gif" />
          </image>
       </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="94.0" layoutX="143.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="80.0" fitWidth="94.0" layoutX="134.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/Developer%20discussing%20different%20options.gif" />
+            <Image url="@../assets/ezgif.com-resize.gif" />
          </image>
       </ImageView>
    </children>

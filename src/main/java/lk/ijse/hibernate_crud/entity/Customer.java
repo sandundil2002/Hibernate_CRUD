@@ -23,8 +23,6 @@ public class Customer {
     private String address;
 
     @Column(name = "mobile")
-    private int mobile;
+    private String mobile;
 
-    @Column(name = "date_time")
-    private Timestamp dateTime;
 }

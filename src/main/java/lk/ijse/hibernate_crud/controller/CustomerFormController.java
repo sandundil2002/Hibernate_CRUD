@@ -1,9 +1,12 @@
 package lk.ijse.hibernate_crud.controller;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import lk.ijse.hibernate_crud.entity.Customer;
+import lk.ijse.hibernate_crud.util.SessionFactoryConfig;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,17 +59,27 @@ public class CustomerFormController {
     }
 
     @FXML
+    private void btnSaveOnAction( ) {
+        String id = txtId.getText();
+        String name = txtFirstname.getText()+" "+txtLastname.getText();
+        String address = txtAddress.getText();
+        String mobile = txtMobile.getText();
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Customer saveCustomer = new Customer(id,name,address,mobile);
+        session.save(saveCustomer);
+        transaction.commit();
+        System.out.println("Saved Customer : " + saveCustomer);
+        session.close();
+    }
+
+    @FXML
     private void btnClearOnAction() {
 
     }
 
     @FXML
     private void btnDeleteOnAction() {
-
-    }
-
-    @FXML
-    private void btnSaveOnAction( ) {
 
     }
 
