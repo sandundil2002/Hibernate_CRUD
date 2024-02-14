@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class CustomerFormController {
 
@@ -59,7 +60,7 @@ public class CustomerFormController {
     }
 
     @FXML
-    private void btnSaveOnAction( ) {
+    private void btnSaveOnAction() {
         String id = txtId.getText();
         String name = txtFirstname.getText()+" "+txtLastname.getText();
         String address = txtAddress.getText();
@@ -75,7 +76,11 @@ public class CustomerFormController {
 
     @FXML
     private void btnClearOnAction() {
-
+        txtId.clear();
+        txtFirstname.clear();
+        txtLastname.clear();
+        txtAddress.clear();
+        txtMobile.clear();
     }
 
     @FXML
