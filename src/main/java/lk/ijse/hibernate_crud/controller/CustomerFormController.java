@@ -110,6 +110,16 @@ public class CustomerFormController {
 
     @FXML
     private void btnSearchOnAction() {
+        getData();
+        Session getSession = SessionFactoryConfig.getInstance().getSession();
+        Customer getCustomer = getSession.get(Customer.class,id);
+        txtId.setText(getCustomer.getId());
+        txtFirstname.setText(getCustomer.getName());
+        txtLastname.setText(getCustomer.getName());
+        txtAddress.setText(getCustomer.getAddress());
+        txtMobile.setText(getCustomer.getMobile());
+        System.out.println("Get Customer : " + getCustomer);
+        getSession.close();
     }
 
     @FXML
