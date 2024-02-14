@@ -65,13 +65,17 @@ public class CustomerFormController {
         String name = txtFirstname.getText()+" "+txtLastname.getText();
         String address = txtAddress.getText();
         String mobile = txtMobile.getText();
-        Session session = SessionFactoryConfig.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        Customer saveCustomer = new Customer(id,name,address,mobile);
-        session.save(saveCustomer);
-        transaction.commit();
-        System.out.println("Saved Customer : " + saveCustomer);
-        session.close();
+
+        if (validateCustomer()) {
+            Session session = SessionFactoryConfig.getInstance().getSession();
+            Transaction transaction = session.beginTransaction();
+            Customer saveCustomer = new Customer(id, name, address, mobile);
+            session.save(saveCustomer);
+            transaction.commit();
+            System.out.println("Saved Customer : " + saveCustomer);
+            session.close();
+            btnClearOnAction();
+        }
     }
 
     @FXML
@@ -94,6 +98,54 @@ public class CustomerFormController {
 
     @FXML
     private void btnSearchOnAction() {
+    }
+
+    private boolean validateCustomer() {
+        String id = txtId.getText();
+        boolean isIdValidated = Pattern.compile("^C\\d{3}$").matcher(id).matches();
+        if (!isIdValidated){
+            new Alert(Alert.AlertType.ERROR,"Please enter a valid id").show();
+            txtId.setStyle("-fx-border-color:#ff0000;");
+            txtId.requestFocus();
+            return false;
+        }
+
+        String firstName = txtFirstname.getText();
+        boolean isFirstNameValidated = Pattern.compile("^[A-Za-z]{1,20}$").matcher(firstName).matches();
+
+        if (!isFirstNameValidated) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a valid name").show();
+            txtFirstname.setStyle("-fx-border-color:#ff0000;");
+            txtFirstname.requestFocus();
+            return false;
+        }
+
+        String lastName = txtLastname.getText();
+        boolean isLastNameValidated = Pattern.compile("^[A-Za-z]{1,20}$").matcher(lastName).matches();
+
+        if (!isLastNameValidated) {
+            new Alert(Alert.AlertType.WARNING,"Please enter a valid name").show();
+            txtLastname.setStyle("-fx-border-color:#ff0000;");
+            txtLastname.requestFocus();
+            return false;
+        }
+
+        String address = txtAddress.getText();
+        boolean isAddressValidated = Pattern.compile("^[A-z]{1,20}$").matcher(address).matches();
+        if (!isAddressValidated) {
+            txtAddress.requestFocus();
+            txtAddress.setStyle("-fx-border-color:#ff0000;");
+            return false;
+        }
+
+        String mobile = txtMobile.getText();
+        boolean isMobileValidated = Pattern.compile("^[0-9]{10}$").matcher(mobile).matches();
+        if (!isMobileValidated) {
+            txtMobile.requestFocus();
+            txtMobile.setStyle("-fx-border-color:#ff0000;");
+            return false;
+        }
+        return true;
     }
 
     private void updateRealTime(Label label) {
