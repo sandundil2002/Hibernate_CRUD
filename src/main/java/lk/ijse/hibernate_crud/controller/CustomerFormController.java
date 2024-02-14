@@ -4,11 +4,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import lk.ijse.hibernate_crud.entity.Customer;
-import lk.ijse.hibernate_crud.util.CustomerIdGenerator;
+import lk.ijse.hibernate_crud.util.IdGenerator;
+import lk.ijse.hibernate_crud.util.DbConnection;
 import lk.ijse.hibernate_crud.util.SessionFactoryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -62,6 +64,7 @@ public class CustomerFormController {
     private String address;
 
     private String mobile;
+
 
     public void initialize(){
         updateRealTime(lblTime);
@@ -214,6 +217,10 @@ public class CustomerFormController {
     }
 
     private void setId(){
-        txtId.setText(CustomerIdGenerator.generateCustomerId());
+        try {
+            txtId.setText(IdGenerator.generateCustomerId(DbConnection.getInstance().getConnection()));
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
     }
 }

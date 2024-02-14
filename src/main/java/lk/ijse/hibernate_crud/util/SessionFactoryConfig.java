@@ -5,6 +5,8 @@ import org.hibernate.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 
+import java.sql.Connection;
+
 public class SessionFactoryConfig {
 
     private static SessionFactoryConfig factoryConfig;
