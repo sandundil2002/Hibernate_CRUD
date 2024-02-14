@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,18 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../style/Css.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hibernate_crud.controller.CustomerFormController">
    <children>
-      <Label layoutX="213.0" prefHeight="62.0" prefWidth="373.0" styleClass="customer-label" stylesheets="@../style/Css.css" text="Customer Manage Form" underline="true" />
-      <TextField fx:id="txtId" layoutX="38.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Customer ID" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <TextField fx:id="txtFirstname" layoutX="185.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="First Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <TextField fx:id="txtLastname" layoutX="332.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Last Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <TextField fx:id="txtMobile" layoutX="628.0" layoutY="78.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Mobile" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <TextField fx:id="txtAddress" layoutX="480.0" layoutY="79.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Address" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <JFXButton layoutX="91.0" layoutY="146.0" onAction="#btnSaveOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Save" />
-      <JFXButton layoutX="225.0" layoutY="146.0" onAction="#btnUpdateOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Update" />
-      <JFXButton layoutX="351.0" layoutY="146.0" onAction="#btnSearchOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Search" />
-      <JFXButton layoutX="478.0" layoutY="146.0" onAction="#btnDeleteOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Delete" />
-      <JFXButton layoutX="599.0" layoutY="146.0" onAction="#btnClearOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Clear" />
-      <TableView layoutX="18.0" layoutY="206.0" prefHeight="374.0" prefWidth="770.0">
+      <TableView fx:id="tblCustomer" layoutX="18.0" layoutY="206.0" prefHeight="374.0" prefWidth="770.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="96.80001831054688" text="Customer ID" />
           <TableColumn fx:id="colName" prefWidth="162.39999389648438" text="Customer Name" />
@@ -32,6 +22,29 @@
             <TableColumn fx:id="colDateTime" prefWidth="178.4000244140625" text="Added Date &amp; Time" />
         </columns>
       </TableView>
+      <Label layoutX="223.0" prefHeight="62.0" prefWidth="373.0" styleClass="customer-label" stylesheets="@../style/Css.css" text="Customer Manage Form" underline="true" />
+      <TextField fx:id="txtId" layoutX="38.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Customer ID" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtFirstname" layoutX="185.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="First Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtLastname" layoutX="332.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Last Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtMobile" layoutX="628.0" layoutY="78.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Mobile" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtAddress" layoutX="480.0" layoutY="79.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Address" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <JFXButton layoutX="91.0" layoutY="146.0" onAction="#btnSaveOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Save">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton layoutX="225.0" layoutY="146.0" onAction="#btnUpdateOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Update">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton layoutX="351.0" layoutY="146.0" onAction="#btnSearchOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Search">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton layoutX="478.0" layoutY="146.0" onAction="#btnDeleteOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Delete">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton layoutX="599.0" layoutY="146.0" onAction="#btnClearOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Clear" />
       <Label alignment="CENTER" layoutX="2.0" layoutY="581.0" prefHeight="19.0" prefWidth="794.0" text="Copyright 2024 GDSE 68 - All Rights Reserved. MIT License.">
          <font>
             <Font size="10.0" />

@@ -1,8 +1,12 @@
 package lk.ijse.hibernate_crud.controller;
 
+import jakarta.persistence.criteria.CriteriaQuery;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hibernate_crud.entity.Customer;
 import lk.ijse.hibernate_crud.util.IdGenerator;
 import lk.ijse.hibernate_crud.util.DbConnection;
@@ -14,12 +18,18 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public class CustomerFormController {
+
+    @FXML
+    private TableView tblCustomer;
 
     @FXML
     private Label lblDate;
@@ -65,11 +75,20 @@ public class CustomerFormController {
 
     private String mobile;
 
-
     public void initialize(){
         updateRealTime(lblTime);
         lblDate.setText(LocalDate.now().toString());
         setId();
+        setCellValueFactory();
+    }
+
+    private void setCellValueFactory() {
+        loadAllCustomers();
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colMobile.setCellValueFactory(new PropertyValueFactory<>("mobile"));
+        colDateTime.setCellValueFactory(new PropertyValueFactory<>("addedDateTime"));
     }
 
     @FXML
@@ -137,6 +156,23 @@ public class CustomerFormController {
         btnClearOnAction();
     }
 
+    private void loadAllCustomers(){
+        ObservableList<Customer> allCustomersList = FXCollections.observableArrayList();
+        Session session = SessionFactoryConfig.getInstance().getSession();
+
+        try {
+            CriteriaQuery<Customer> criteriaQuery = session.getCriteriaBuilder().createQuery(Customer.class);
+            criteriaQuery.from(Customer.class);
+            List<Customer> customersList = session.createQuery(criteriaQuery).getResultList();
+            allCustomersList.setAll(customersList);
+            tblCustomer.setItems(allCustomersList);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } finally {
+            session.close();
+        }
+    }
+
     @FXML
     private void btnClearOnAction() {
         txtId.clear();
@@ -145,6 +181,7 @@ public class CustomerFormController {
         txtAddress.clear();
         txtMobile.clear();
         setId();
+        setCellValueFactory();
     }
 
     @FXML
