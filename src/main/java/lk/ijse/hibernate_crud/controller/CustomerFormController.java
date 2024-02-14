@@ -85,7 +85,6 @@ public class CustomerFormController {
             System.out.println("Saved Customer : " + saveCustomer);
             saveSession.close();
             btnClearOnAction();
-            setId();
         }
     }
 
@@ -123,16 +122,26 @@ public class CustomerFormController {
     }
 
     @FXML
+    private void btnDeleteOnAction() {
+        getData();
+        Session deleteSession = SessionFactoryConfig.getInstance().getSession();
+        Transaction deleteTransaction = deleteSession.beginTransaction();
+        Customer deleteCustomer = deleteSession.get(Customer.class, id);
+        deleteSession.delete(deleteCustomer);
+        deleteTransaction.commit();
+        System.out.println("Deleted Customer : " + deleteCustomer);
+        deleteSession.close();
+        btnClearOnAction();
+    }
+
+    @FXML
     private void btnClearOnAction() {
         txtId.clear();
         txtFirstname.clear();
         txtLastname.clear();
         txtAddress.clear();
         txtMobile.clear();
-    }
-
-    @FXML
-    private void btnDeleteOnAction() {
+        setId();
     }
 
     @FXML
