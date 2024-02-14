@@ -75,7 +75,11 @@ public class CustomerFormController {
             getData();
             Session saveSession = SessionFactoryConfig.getInstance().getSession();
             Transaction transaction = saveSession.beginTransaction();
-            Customer saveCustomer = new Customer(id, name, address, mobile);
+            Customer saveCustomer = new Customer();
+            saveCustomer.setId(id);
+            saveCustomer.setName(name);
+            saveCustomer.setAddress(address);
+            saveCustomer.setMobile(mobile);
             saveSession.save(saveCustomer);
             transaction.commit();
             System.out.println("Saved Customer : " + saveCustomer);
@@ -105,6 +109,10 @@ public class CustomerFormController {
     }
 
     @FXML
+    private void btnSearchOnAction() {
+    }
+
+    @FXML
     private void btnClearOnAction() {
         txtId.clear();
         txtFirstname.clear();
@@ -115,10 +123,6 @@ public class CustomerFormController {
 
     @FXML
     private void btnDeleteOnAction() {
-    }
-
-    @FXML
-    private void btnSearchOnAction() {
     }
 
     @FXML

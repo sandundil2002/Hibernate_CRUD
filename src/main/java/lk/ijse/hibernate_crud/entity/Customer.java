@@ -2,6 +2,8 @@ package lk.ijse.hibernate_crud.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -25,4 +27,8 @@ public class Customer {
 
     @Column(name = "mobile")
     private String mobile;
+
+    @Column(name = "addedDateTime")
+    @CreationTimestamp
+    private Timestamp addedDateTime;
 }
