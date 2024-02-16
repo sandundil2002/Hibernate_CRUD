@@ -101,17 +101,16 @@ public class CustomerFormController {
 
     @FXML
     private void btnUpdateOnAction() {
-        getData();
-
         if (validateCustomer()) {
-            Customer updateCustomer = new Customer(id,firstName,lastName,address,mobile);
+            getData();
+            Customer updateCustomer = new Customer(id, firstName, lastName, address, mobile);
             boolean isUpdated = customerModel.updateCustomer(updateCustomer);
 
-            if (isUpdated){
-                new Alert(Alert.AlertType.CONFIRMATION , "Customer Update Successfully").show();
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer Update Successfully").show();
                 btnClearOnAction();
             } else {
-                new Alert(Alert.AlertType.ERROR , "Something Went Wrong").show();
+                new Alert(Alert.AlertType.ERROR, "Something Went Wrong").show();
                 btnClearOnAction();
             }
         }
@@ -119,31 +118,43 @@ public class CustomerFormController {
 
     @FXML
     private void btnSearchOnAction() {
-        getData();
-        Customer getCustomer = customerModel.searchCustomer(id);
+        if (Pattern.compile("\\d+").matcher(txtId.getText()).matches()) {
+            getData();
+            Customer getCustomer = customerModel.searchCustomer(id);
 
-        if (getCustomer == null){
-            new Alert(Alert.AlertType.ERROR , "Customer Not Found").show();
-            btnClearOnAction();
+            if (getCustomer == null) {
+                new Alert(Alert.AlertType.ERROR, "Customer Not Found").show();
+                btnClearOnAction();
+            } else {
+                txtId.setText(String.valueOf(getCustomer.getId()));
+                txtFirstname.setText(getCustomer.getName().getFistName());
+                txtLastname.setText(getCustomer.getName().getLastName());
+                txtAddress.setText(getCustomer.getAddress());
+                txtMobile.setText(getCustomer.getMobile());
+            }
         } else {
-            txtId.setText(String.valueOf(getCustomer.getId()));
-            txtFirstname.setText(getCustomer.getName().getFistName());
-            txtLastname.setText(getCustomer.getName().getLastName());
-            txtAddress.setText(getCustomer.getAddress());
-            txtMobile.setText(getCustomer.getMobile());
+            new Alert(Alert.AlertType.ERROR,"Please enter a valid id").show();
+            txtId.setStyle("-fx-border-color:#ff0000;");
+            txtId.requestFocus();
         }
     }
 
     @FXML
     private void btnDeleteOnAction() {
-        getData();
-        boolean isDeleted = customerModel.deleteCustomer(id);
+        if (Pattern.compile("\\d+").matcher(txtId.getText()).matches()) {
+            getData();
+            boolean isDeleted = customerModel.deleteCustomer(id);
 
-        if (isDeleted){
-            new Alert(Alert.AlertType.CONFIRMATION , "Customer Delete Successfully").show();
-            btnClearOnAction();
-        } else {
-            btnClearOnAction();
+            if (isDeleted) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer Delete Successfully").show();
+                btnClearOnAction();
+            } else {
+                btnClearOnAction();
+            }
+        }  else {
+            new Alert(Alert.AlertType.ERROR,"Please enter a valid id").show();
+            txtId.setStyle("-fx-border-color:#ff0000;");
+            txtId.requestFocus();
         }
     }
 
