@@ -1,6 +1,7 @@
 package lk.ijse.hibernate_crud.entity;
 
 import jakarta.persistence.*;
+import lk.ijse.hibernate_crud.embeddad.NameIdentifier;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -17,10 +18,11 @@ public class Customer {
 
     @Id
     @Column(name = "customer_id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "customer_name")
-    private String name;
+    private NameIdentifier name;
 
     @Column(name = "address")
     private String address;
@@ -31,4 +33,11 @@ public class Customer {
     @Column(name = "addedDateTime")
     @CreationTimestamp
     private Timestamp addedDateTime;
+
+    public Customer(int id, String firstName, String lastName, String address, String mobile) {
+        this.id = id;
+        this.name = new NameIdentifier(firstName , lastName);
+        this.address = address;
+        this.mobile = mobile;
+    }
 }

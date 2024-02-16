@@ -1,26 +1,15 @@
 package lk.ijse.hibernate_crud.controller;
 
-import jakarta.persistence.criteria.CriteriaQuery;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hibernate_crud.entity.Customer;
-import lk.ijse.hibernate_crud.util.IdGenerator;
-import lk.ijse.hibernate_crud.util.DbConnection;
-import lk.ijse.hibernate_crud.util.SessionFactoryConfig;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import lk.ijse.hibernate_crud.model.CustomerModel;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -67,18 +56,21 @@ public class CustomerFormController {
     @FXML
     private TextField txtMobile;
 
-    private String id;
+    private int id;
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
 
     private String address;
 
     private String mobile;
 
+    private final CustomerModel customerModel = new CustomerModel();
+
     public void initialize(){
         updateRealTime(lblTime);
         lblDate.setText(LocalDate.now().toString());
-        setId();
         setCellValueFactory();
     }
 
@@ -95,82 +87,68 @@ public class CustomerFormController {
     private void btnSaveOnAction() {
         if (validateCustomer()) {
             getData();
-            Session saveSession = SessionFactoryConfig.getInstance().getSession();
-            Transaction transaction = saveSession.beginTransaction();
-            Customer saveCustomer = new Customer();
-            saveCustomer.setId(id);
-            saveCustomer.setName(name);
-            saveCustomer.setAddress(address);
-            saveCustomer.setMobile(mobile);
-            saveSession.save(saveCustomer);
-            transaction.commit();
-            System.out.println("Saved Customer : " + saveCustomer);
-            saveSession.close();
-            btnClearOnAction();
+            Customer saveCustomer = new Customer(id,firstName,lastName,address,mobile);
+            boolean isSaved = customerModel.saveCustomer(saveCustomer);
+
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION , "Customer Saved Successfully").show();
+                btnClearOnAction();
+            } else {
+                new Alert(Alert.AlertType.ERROR , "Something Went Wrong").show();
+            }
         }
     }
 
     @FXML
     private void btnUpdateOnAction() {
+        getData();
+
         if (validateCustomer()) {
-            getData();
-            Session updateSession = SessionFactoryConfig.getInstance().getSession();
-            Transaction updateTransaction = updateSession.beginTransaction();
-            Customer updateCustomer = updateSession.get(Customer.class, id);
-            updateCustomer.setId(id);
-            updateCustomer.setName(name);
-            updateCustomer.setAddress(address);
-            updateCustomer.setMobile(mobile);
-            updateSession.update(updateCustomer);
-            updateTransaction.commit();
-            System.out.println("Updated Customer : " + updateCustomer);
-            updateSession.close();
-            btnClearOnAction();
+            Customer updateCustomer = new Customer(id,firstName,lastName,address,mobile);
+            boolean isUpdated = customerModel.updateCustomer(updateCustomer);
+
+            if (isUpdated){
+                new Alert(Alert.AlertType.CONFIRMATION , "Customer Update Successfully").show();
+                btnClearOnAction();
+            } else {
+                new Alert(Alert.AlertType.ERROR , "Something Went Wrong").show();
+                btnClearOnAction();
+            }
         }
     }
 
     @FXML
     private void btnSearchOnAction() {
         getData();
-        Session getSession = SessionFactoryConfig.getInstance().getSession();
-        Customer getCustomer = getSession.get(Customer.class,id);
-        txtId.setText(getCustomer.getId());
-        txtFirstname.setText(getCustomer.getName());
-        txtLastname.setText(getCustomer.getName());
-        txtAddress.setText(getCustomer.getAddress());
-        txtMobile.setText(getCustomer.getMobile());
-        System.out.println("Get Customer : " + getCustomer);
-        getSession.close();
+        Customer getCustomer = customerModel.searchCustomer(id);
+
+        if (getCustomer == null){
+            new Alert(Alert.AlertType.ERROR , "Customer Not Found").show();
+            btnClearOnAction();
+        } else {
+            txtId.setText(String.valueOf(getCustomer.getId()));
+            txtFirstname.setText(getCustomer.getName().getFistName());
+            txtLastname.setText(getCustomer.getName().getLastName());
+            txtAddress.setText(getCustomer.getAddress());
+            txtMobile.setText(getCustomer.getMobile());
+        }
     }
 
     @FXML
     private void btnDeleteOnAction() {
         getData();
-        Session deleteSession = SessionFactoryConfig.getInstance().getSession();
-        Transaction deleteTransaction = deleteSession.beginTransaction();
-        Customer deleteCustomer = deleteSession.get(Customer.class, id);
-        deleteSession.delete(deleteCustomer);
-        deleteTransaction.commit();
-        System.out.println("Deleted Customer : " + deleteCustomer);
-        deleteSession.close();
-        btnClearOnAction();
+        boolean isDeleted = customerModel.deleteCustomer(id);
+
+        if (isDeleted){
+            new Alert(Alert.AlertType.CONFIRMATION , "Customer Delete Successfully").show();
+            btnClearOnAction();
+        } else {
+            btnClearOnAction();
+        }
     }
 
     private void loadAllCustomers(){
-        ObservableList<Customer> allCustomersList = FXCollections.observableArrayList();
-        Session session = SessionFactoryConfig.getInstance().getSession();
-
-        try {
-            CriteriaQuery<Customer> criteriaQuery = session.getCriteriaBuilder().createQuery(Customer.class);
-            criteriaQuery.from(Customer.class);
-            List<Customer> customersList = session.createQuery(criteriaQuery).getResultList();
-            allCustomersList.setAll(customersList);
-            tblCustomer.setItems(allCustomersList);
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } finally {
-            session.close();
-        }
+        tblCustomer.setItems(customerModel.loadAllCustomers());
     }
 
     @FXML
@@ -180,7 +158,6 @@ public class CustomerFormController {
         txtLastname.clear();
         txtAddress.clear();
         txtMobile.clear();
-        setId();
         setCellValueFactory();
     }
 
@@ -190,15 +167,16 @@ public class CustomerFormController {
     }
 
     private void getData(){
-        id = txtId.getText();
-        name = txtFirstname.getText()+" "+txtLastname.getText();
+        id = Integer.parseInt(txtId.getText());
+        firstName = txtFirstname.getText();
+        lastName = txtLastname.getText();
         address = txtAddress.getText();
         mobile = txtMobile.getText();
     }
 
     private boolean validateCustomer() {
         String id = txtId.getText();
-        boolean isIdValidated = Pattern.compile("^C\\d{3}$").matcher(id).matches();
+        boolean isIdValidated = Pattern.compile("\\d+").matcher(id).matches();
         if (!isIdValidated){
             new Alert(Alert.AlertType.ERROR,"Please enter a valid id").show();
             txtId.setStyle("-fx-border-color:#ff0000;");
@@ -251,13 +229,5 @@ public class CustomerFormController {
             String currentTime = LocalDateTime.now().format(timeFormatter);
             Platform.runLater(() -> label.setText(currentTime));
         }, 0, 1, TimeUnit.SECONDS);
-    }
-
-    private void setId(){
-        try {
-            txtId.setText(IdGenerator.generateCustomerId(DbConnection.getInstance().getConnection()));
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
-        }
     }
 }
