@@ -1,8 +1,7 @@
 package lk.ijse.hibernate_crud.model;
 
 import jakarta.persistence.criteria.CriteriaQuery;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.scene.control.Alert;
 import lk.ijse.hibernate_crud.entity.Customer;
 import lk.ijse.hibernate_crud.util.SessionFactoryConfig;
@@ -20,16 +19,21 @@ public class CustomerModel {
         return true;
     }
 
-    public boolean updateCustomer(Customer updateCustomer){
-        if (updateCustomer!= null) {
+    public boolean updateCustomer(String id , Customer updateCustomer){
+        if (updateCustomer!= null ) {
             Session updateSession = SessionFactoryConfig.getInstance().getSession();
             Transaction updateTransaction = updateSession.beginTransaction();
-            Customer existingCustomer = updateSession.get(Customer.class, updateCustomer.getId());
-            existingCustomer.setId(updateCustomer.getId());
-            existingCustomer.setName(updateCustomer.getName());
-            existingCustomer.setAddress(updateCustomer.getAddress());
-            existingCustomer.setMobile(updateCustomer.getMobile());
-            updateSession.update(existingCustomer);
+            Customer existingCustomer = updateSession.get(Customer.class, id);
+            if (existingCustomer!= null) {
+                existingCustomer.setName(updateCustomer.getName());
+                existingCustomer.setAddress(updateCustomer.getAddress());
+                existingCustomer.setMobile(updateCustomer.getMobile());
+                updateSession.update(existingCustomer);
+            } else {
+                updateTransaction.commit();
+                updateSession.close();
+                return false;
+            }
             updateTransaction.commit();
             updateSession.close();
             return true;
@@ -38,7 +42,7 @@ public class CustomerModel {
         }
     }
 
-    public Customer searchCustomer(int id){
+    public Customer searchCustomer(String id){
         Session searchSession = SessionFactoryConfig.getInstance().getSession();
         Transaction searchTransaction = searchSession.beginTransaction();
         Customer getCustomer = searchSession.get(Customer.class,id);
@@ -47,7 +51,7 @@ public class CustomerModel {
         return getCustomer;
     }
 
-    public boolean deleteCustomer(int id){
+    public boolean deleteCustomer(String id){
         Session deleteSession = SessionFactoryConfig.getInstance().getSession();
         Transaction deleteTransaction = deleteSession.beginTransaction();
         Customer deleteCustomer = deleteSession.get(Customer.class, id);

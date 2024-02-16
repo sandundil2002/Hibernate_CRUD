@@ -34,8 +34,7 @@ public class Customer {
     @CreationTimestamp
     private Timestamp addedDateTime;
 
-    public Customer(int id, String firstName, String lastName, String address, String mobile) {
-        this.id = id;
+    public Customer(String firstName, String lastName, String address, String mobile) {
         this.name = new NameIdentifier(firstName , lastName);
         this.address = address;
         this.mobile = mobile;

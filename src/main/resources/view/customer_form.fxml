@@ -23,28 +23,24 @@
         </columns>
       </TableView>
       <Label layoutX="223.0" prefHeight="62.0" prefWidth="373.0" styleClass="customer-label" stylesheets="@../style/Css.css" text="Customer Manage Form" underline="true" />
-      <TextField fx:id="txtId" layoutX="38.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Customer ID" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtId" layoutX="18.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" onAction="#btnSearchOnAction" prefHeight="38.0" prefWidth="146.0" promptText="Search Id" styleClass="SearchFiled" stylesheets="@../style/Css.css" />
       <TextField fx:id="txtFirstname" layoutX="185.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="First Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
       <TextField fx:id="txtLastname" layoutX="332.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Last Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
       <TextField fx:id="txtMobile" layoutX="628.0" layoutY="78.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Mobile" styleClass="UserFiled" stylesheets="@../style/Css.css" />
       <TextField fx:id="txtAddress" layoutX="480.0" layoutY="79.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Address" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <JFXButton layoutX="91.0" layoutY="146.0" onAction="#btnSaveOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Save">
+      <JFXButton layoutX="121.0" layoutY="146.0" onAction="#btnSaveOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Save">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXButton>
-      <JFXButton layoutX="225.0" layoutY="146.0" onAction="#btnUpdateOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Update">
+      <JFXButton layoutX="275.0" layoutY="146.0" onAction="#btnUpdateOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Update">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXButton>
-      <JFXButton layoutX="351.0" layoutY="146.0" onAction="#btnSearchOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Search">
+      <JFXButton layoutX="428.0" layoutY="146.0" onAction="#btnDeleteOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Delete">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXButton>
-      <JFXButton layoutX="478.0" layoutY="146.0" onAction="#btnDeleteOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Delete">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></JFXButton>
-      <JFXButton layoutX="599.0" layoutY="146.0" onAction="#btnClearOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Clear" />
+      <JFXButton layoutX="589.0" layoutY="146.0" onAction="#btnClearOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Clear" />
       <Label alignment="CENTER" layoutX="2.0" layoutY="581.0" prefHeight="19.0" prefWidth="794.0" text="Copyright 2024 GDSE 68 - All Rights Reserved. MIT License.">
          <font>
             <Font size="10.0" />
@@ -60,6 +56,11 @@
       <ImageView fitHeight="80.0" fitWidth="94.0" layoutX="134.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/ezgif.com-resize.gif" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="129.0" layoutY="86.0" onMouseClicked="#btnSearchOnAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/search.png" />
          </image>
       </ImageView>
    </children>

@@ -7,12 +7,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hibernate_crud.entity.Customer;
 import lk.ijse.hibernate_crud.model.CustomerModel;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.regex.Pattern;
 
 public class CustomerFormController {
@@ -56,8 +53,6 @@ public class CustomerFormController {
     @FXML
     private TextField txtMobile;
 
-    private int id;
-
     private String firstName;
 
     private String lastName;
@@ -87,7 +82,7 @@ public class CustomerFormController {
     private void btnSaveOnAction() {
         if (validateCustomer()) {
             getData();
-            Customer saveCustomer = new Customer(id,firstName,lastName,address,mobile);
+            Customer saveCustomer = new Customer(firstName,lastName,address,mobile);
             boolean isSaved = customerModel.saveCustomer(saveCustomer);
 
             if (isSaved){
@@ -101,10 +96,11 @@ public class CustomerFormController {
 
     @FXML
     private void btnUpdateOnAction() {
-        if (validateCustomer()) {
+        String id = txtId.getText();
+        if (Pattern.compile("\\d+").matcher(id).matches() && validateCustomer()) {
             getData();
-            Customer updateCustomer = new Customer(id, firstName, lastName, address, mobile);
-            boolean isUpdated = customerModel.updateCustomer(updateCustomer);
+            Customer updateCustomer = new Customer(firstName, lastName, address, mobile);
+            boolean isUpdated = customerModel.updateCustomer(id,updateCustomer);
 
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Update Successfully").show();
@@ -113,13 +109,15 @@ public class CustomerFormController {
                 new Alert(Alert.AlertType.ERROR, "Something Went Wrong").show();
                 btnClearOnAction();
             }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Customer Not Found").show();
         }
     }
 
     @FXML
     private void btnSearchOnAction() {
-        if (Pattern.compile("\\d+").matcher(txtId.getText()).matches()) {
-            getData();
+        String id = txtId.getText();
+        if (Pattern.compile("\\d+").matcher(id).matches()) {
             Customer getCustomer = customerModel.searchCustomer(id);
 
             if (getCustomer == null) {
@@ -141,7 +139,8 @@ public class CustomerFormController {
 
     @FXML
     private void btnDeleteOnAction() {
-        if (Pattern.compile("\\d+").matcher(txtId.getText()).matches()) {
+        String id = txtId.getText();
+        if (Pattern.compile("\\d+").matcher(id).matches()) {
             getData();
             boolean isDeleted = customerModel.deleteCustomer(id);
 
@@ -178,7 +177,6 @@ public class CustomerFormController {
     }
 
     private void getData(){
-        id = Integer.parseInt(txtId.getText());
         firstName = txtFirstname.getText();
         lastName = txtLastname.getText();
         address = txtAddress.getText();
@@ -186,15 +184,6 @@ public class CustomerFormController {
     }
 
     private boolean validateCustomer() {
-        String id = txtId.getText();
-        boolean isIdValidated = Pattern.compile("\\d+").matcher(id).matches();
-        if (!isIdValidated){
-            new Alert(Alert.AlertType.ERROR,"Please enter a valid id").show();
-            txtId.setStyle("-fx-border-color:#ff0000;");
-            txtId.requestFocus();
-            return false;
-        }
-
         String firstName = txtFirstname.getText();
         boolean isFirstNameValidated = Pattern.compile("^[A-Za-z]{1,20}$").matcher(firstName).matches();
 
