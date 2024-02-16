@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: #fff6f6 ;
+    -fx-background-color: #fff6f6;
 }
 
 .customer-label {
@@ -27,7 +27,7 @@
 }
 
 .UserFiled:hover{
-    -fx-background-color: #FFE9E9;
+    -fx-background-color: #aed6f1;
     -fx-background-radius: 19px;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .SearchFiled:hover{
-    -fx-background-color: transparent;
+    -fx-background-color: #aed6f1;
     -fx-background-radius: 19px;
 }
 
@@ -57,6 +57,10 @@
     -fx-text-fill: #6F17EB;
     -fx-font-weight: bold;
     -fx-padding: 8px 16px;
+}
+
+.btn:hover{
+    -fx-background-color: rgba(0, 255, 0, 0.5);
 }
 
 .timeLabel {

@@ -24,10 +24,10 @@
       </TableView>
       <Label layoutX="223.0" prefHeight="62.0" prefWidth="373.0" styleClass="customer-label" stylesheets="@../style/Css.css" text="Customer Manage Form" underline="true" />
       <TextField fx:id="txtId" layoutX="18.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" onAction="#btnSearchOnAction" prefHeight="38.0" prefWidth="146.0" promptText="Search Id" styleClass="SearchFiled" stylesheets="@../style/Css.css" />
-      <TextField fx:id="txtFirstname" layoutX="185.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="First Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <TextField fx:id="txtLastname" layoutX="332.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Last Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <TextField fx:id="txtMobile" layoutX="628.0" layoutY="78.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Mobile" styleClass="UserFiled" stylesheets="@../style/Css.css" />
-      <TextField fx:id="txtAddress" layoutX="480.0" layoutY="79.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Address" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtFirstname" layoutX="188.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="First Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtLastname" layoutX="345.0" layoutY="80.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Last Name" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtMobile" layoutX="656.0" layoutY="78.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Mobile" styleClass="UserFiled" stylesheets="@../style/Css.css" />
+      <TextField fx:id="txtAddress" layoutX="502.0" layoutY="79.0" minHeight="23.0" minWidth="117.0" prefHeight="38.0" prefWidth="130.0" promptText="Address" styleClass="UserFiled" stylesheets="@../style/Css.css" />
       <JFXButton layoutX="121.0" layoutY="146.0" onAction="#btnSaveOnAction" prefHeight="44.0" prefWidth="94.0" styleClass="btn" stylesheets="@../style/Css.css" text="Save">
          <cursor>
             <Cursor fx:constant="HAND" />
