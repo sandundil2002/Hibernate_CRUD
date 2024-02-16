@@ -163,6 +163,7 @@ public class CustomerFormController {
 
     @FXML
     private void btnClearOnAction() {
+        resetBoarderColour();
         txtId.clear();
         txtFirstname.clear();
         txtLastname.clear();
@@ -220,6 +221,14 @@ public class CustomerFormController {
             return false;
         }
         return true;
+    }
+
+    private void resetBoarderColour(){
+        txtId.setStyle("-fx-border-color: #8D8D8D");
+        txtFirstname.setStyle("-fx-border-color: #8D8D8D");
+        txtLastname.setStyle("-fx-border-color: #8D8D8D");
+        txtAddress.setStyle("-fx-border-color: #8D8D8D");
+        txtMobile.setStyle("-fx-border-color: #8D8D8D");
     }
 
     private void updateRealTime(Label label) {
