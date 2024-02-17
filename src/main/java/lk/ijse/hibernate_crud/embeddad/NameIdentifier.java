@@ -5,11 +5,17 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Embeddable
 
 public class NameIdentifier {
     private String fistName;
     private String lastName;
+
+    @Override
+    public String toString() {
+        return fistName+" "+lastName;
+    }
 }
 

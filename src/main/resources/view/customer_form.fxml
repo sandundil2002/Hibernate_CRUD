@@ -46,8 +46,8 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="lblTime" layoutX="627.0" layoutY="7.0" prefHeight="42.0" prefWidth="159.0" styleClass="timeLabel" stylesheets="@../style/Css.css" text="Label" textFill="#0000009c" />
-      <Label fx:id="lblDate" layoutX="662.0" layoutY="39.0" prefHeight="20.0" prefWidth="92.0" styleClass="dateLabel" stylesheets="@../style/Css.css" text="Label" textFill="#0000009c" />
+      <Label fx:id="lblTime" layoutX="622.0" layoutY="7.0" prefHeight="42.0" prefWidth="174.0" styleClass="timeLabel" stylesheets="@../style/Css.css" text="Label" textFill="#0000009c" />
+      <Label fx:id="lblDate" layoutX="657.0" layoutY="39.0" prefHeight="20.0" prefWidth="92.0" styleClass="dateLabel" stylesheets="@../style/Css.css" text="Label" textFill="#0000009c" />
       <ImageView fitHeight="62.0" fitWidth="63.0" layoutX="13.0" layoutY="5.0" onMouseClicked="#btnBackOnAction" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/Back Arrow.gif" />
