@@ -4,9 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import lk.ijse.hibernate_crud.util.SessionFactoryConfig;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.io.IOException;
 

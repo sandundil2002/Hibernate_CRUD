@@ -13,7 +13,7 @@ public class CustomerModel {
     public boolean saveCustomer(Customer saveCustomer){
         Session saveSession = SessionFactoryConfig.getInstance().getSession();
         Transaction saveTransaction = saveSession.beginTransaction();
-        saveSession.save(saveCustomer);
+        saveSession.persist(saveCustomer);
         saveTransaction.commit();
         saveSession.close();
         return true;
@@ -28,7 +28,7 @@ public class CustomerModel {
                 existingCustomer.setName(updateCustomer.getName());
                 existingCustomer.setAddress(updateCustomer.getAddress());
                 existingCustomer.setMobile(updateCustomer.getMobile());
-                updateSession.update(existingCustomer);
+                updateSession.merge(existingCustomer);
             } else {
                 updateTransaction.commit();
                 updateSession.close();
@@ -59,7 +59,7 @@ public class CustomerModel {
             new Alert(Alert.AlertType.ERROR , "Customer Not Found").show();
             return false;
         } else {
-            deleteSession.delete(deleteCustomer);
+            deleteSession.remove(deleteCustomer);
             deleteTransaction.commit();
             deleteSession.close();
             return true;

@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class CustomerFormController {
 
     @FXML
-    private TableView tblCustomer;
+    private TableView<Customer> tblCustomer;
 
     @FXML
     private Label lblDate;
@@ -66,11 +66,10 @@ public class CustomerFormController {
     public void initialize(){
         updateRealTime(lblTime);
         lblDate.setText(LocalDate.now().toString());
-        setCellValueFactory();
+        reload();
     }
 
     private void setCellValueFactory() {
-        loadAllCustomers();
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -164,12 +163,12 @@ public class CustomerFormController {
     @FXML
     private void btnClearOnAction() {
         resetBoarderColour();
+        reload();
         txtId.clear();
         txtFirstname.clear();
         txtLastname.clear();
         txtAddress.clear();
         txtMobile.clear();
-        setCellValueFactory();
     }
 
     @FXML
@@ -221,6 +220,11 @@ public class CustomerFormController {
             return false;
         }
         return true;
+    }
+
+    private void reload(){
+        loadAllCustomers();
+        setCellValueFactory();
     }
 
     private void resetBoarderColour(){
